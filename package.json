@@ -1,0 +1,14 @@
+{
+  "name": "ai-zotero-research-studio",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Local-first research workspace, BYO multimodal AI and personalized literature radar for Zotero",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "build": "python3 tools/build.py",
+    "preview": "python3 tools/preview.py",
+    "benchmark": "node tools/benchmark.cjs"
+  },
+  "engines": { "node": ">=20" }
+}

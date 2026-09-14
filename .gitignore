@@ -1,0 +1,10 @@
+.env
+.env.*
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.zotero-test/
+ai-zotero-cache/
+dist/*.png
+dist/*report.json

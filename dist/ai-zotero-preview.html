@@ -1,0 +1,775 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Zotero · Offline Preview</title><style>:root{color-scheme:light;--bg:#f4f5f1;--surface:#fff;--soft:#edf0e9;--text:#202820;--muted:#6c756b;--border:#dde2d8;--accent:#326849;--accent-soft:#e7f1e8;--warn:#916321;--danger:#a9413a;--shadow:0 12px 36px #162b1610;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:14px}
+:root[data-theme=dark]{color-scheme:dark;--bg:#171d1a;--surface:#202823;--soft:#29332d;--text:#e2e9df;--muted:#a4b1a1;--border:#354438;--accent:#8fc5a1;--accent-soft:#304a37;--warn:#e2b677;--danger:#f1a098;--shadow:0 12px 36px #0003}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);overflow:hidden}button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--text);padding:8px 12px;line-height:1.3;transition:background .12s,border-color .12s}button:hover{background:var(--soft);border-color:var(--accent)}button:disabled{cursor:default;opacity:.45}button.primary{background:var(--accent);color:var(--surface);border-color:var(--accent)}button.danger{color:var(--danger)}button.ghost{border-color:transparent;background:transparent}button.small{font-size:12px;padding:5px 9px}input,textarea,select{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:9px 11px;min-width:0}input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;margin:0;flex-shrink:0}textarea{resize:vertical;line-height:1.55}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.shell{display:grid;grid-template-columns:220px minmax(400px,1fr) 345px;height:100vh}.shell.no-assistant{grid-template-columns:220px minmax(400px,1fr)}.sidebar{display:flex;flex-direction:column;border-right:1px solid var(--border);padding:30px 18px 18px;background:var(--soft)}.brand{display:flex;gap:10px;align-items:center;padding:0 8px 27px}.brandmark{display:grid;place-items:center;width:36px;height:40px;background:var(--accent);color:var(--surface);border-radius:10px;font:700 23px Georgia,serif}.brand strong{font-size:17px;letter-spacing:-.6px}.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:5px 0}.nav{display:flex;flex-direction:column;gap:7px}.nav button{border:0;background:transparent;display:flex;align-items:center;gap:11px;text-align:left;padding:12px;border-radius:10px;color:var(--muted)}.nav button.active{background:var(--surface);color:var(--accent);font-weight:650;box-shadow:0 3px 12px #12231207}.nav-symbol{width:19px;font-size:18px}.sidebar-note{margin-top:30px;padding:14px 11px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;line-height:1.8}.sidebar-bottom{margin-top:auto;font-size:11px;color:var(--muted);padding:16px 10px 2px;line-height:1.8}.dot{display:inline-block;width:7px;height:7px;background:var(--accent);border-radius:50%;margin-right:6px}.main{display:flex;flex-direction:column;min-width:0;overflow:hidden}.topbar{padding:24px 32px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg)}h1{font-size:25px;font-weight:650;letter-spacing:-.8px;margin:5px 0}h2{font-size:18px;line-height:1.4;margin:0 0 12px}h3{font-size:15px;margin:0 0 8px}.subtitle{color:var(--muted);font-size:12px;line-height:1.6}.top-actions,.row,.toolbar,.card-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.view{overflow:auto;padding:23px 32px 32px;flex:1;min-height:0;scrollbar-width:thin}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px}.stat strong{display:block;font-size:24px;font-weight:620;letter-spacing:-.5px}.stat span{display:block;font-size:11px;color:var(--muted);margin-top:5px}.searchbar{display:flex;gap:8px;margin:15px 0 8px;align-items:center}.searchbar input{flex:1;padding:13px 15px;border-radius:11px;box-shadow:var(--shadow)}.toolbar{justify-content:space-between;margin:18px 0 13px}.toolbar .row{gap:7px}.muted{color:var(--muted)}.tiny{font-size:11px}.hint{font-size:12px;color:var(--muted);line-height:1.75}.banner{padding:14px 16px;border:1px solid var(--border);background:var(--accent-soft);border-radius:11px;font-size:12px;line-height:1.8;margin:12px 0}.banner.warning{background:var(--soft);color:var(--warn)}.card{border:1px solid var(--border);background:var(--surface);padding:18px 19px;border-radius:12px;margin-bottom:11px;box-shadow:0 2px 5px #13251302}.card.selected{border-color:var(--accent);box-shadow:inset 3px 0 var(--accent)}.card-head{display:flex;gap:12px;align-items:flex-start}.card-head>input{margin-top:5px}.card-body{flex:1;min-width:0}.title-button{font-size:15px;font-weight:600;line-height:1.55;text-align:left;border:0;background:none;padding:0;border-radius:3px}.title-button:hover{background:none;color:var(--accent)}.meta{font-size:11px;line-height:1.8;color:var(--muted);margin:5px 0 9px}.abstract{font-size:12px;line-height:1.8;margin:8px 0;color:var(--muted)}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.tag{display:inline-flex;align-items:center;font-size:10px;padding:4px 7px;background:var(--soft);border-radius:5px;color:var(--muted)}.tag.green{color:var(--accent);background:var(--accent-soft)}.tag.warning{color:var(--warn)}.card-actions{margin-top:11px}.card-actions button{font-size:11px;padding:5px 8px}.empty{padding:48px 24px;border:1px dashed var(--border);border-radius:12px;text-align:center;line-height:1.9;color:var(--muted);background:var(--surface)}.empty strong{display:block;font-size:17px;color:var(--text);font-weight:550;margin-bottom:10px}.section-label{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:23px 0 12px;font-size:12px;color:var(--muted)}.source-status{display:grid;grid-template-columns:1fr 1fr;gap:10px}.source-status .card{font-size:11px;line-height:1.7;padding:12px;overflow-wrap:anywhere}.score{font-size:21px;font-weight:650;color:var(--accent);white-space:nowrap;min-width:42px;text-align:right}.nearest{font-size:11px;padding:9px 11px;background:var(--soft);border-radius:7px;line-height:1.7;margin-top:9px}.tabbar{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}.tabbar button.active{color:var(--accent);background:var(--accent-soft);border-color:var(--accent)}.settings-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:21px;margin:0 0 18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px;font-size:12px;margin:13px 0}.field.wide{grid-column:1/-1}.field small{line-height:1.7;color:var(--muted);font-size:11px}.check{display:flex;align-items:flex-start;gap:9px;margin:13px 0;font-size:12px;line-height:1.7}.check input{margin-top:3px}.code-input{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;width:100%;min-height:310px;tab-size:2}.file-row{font-size:12px;line-height:1.7;overflow-wrap:anywhere}.file-name{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11px;padding:5px 0}.assistant{border-left:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;min-width:0;min-height:0}.assistant-head{padding:25px 22px 19px;border-bottom:1px solid var(--border)}.assistant-head h2{font-size:16px;margin:0 0 7px}.conversation{flex:1;overflow:auto;padding:20px 18px;scrollbar-width:thin}.assistant-welcome{padding:12px 3px;color:var(--muted);font-size:12px;line-height:1.85}.assistant-welcome h3{color:var(--text);font-size:17px;font-weight:550}.suggestion{display:block;text-align:left;width:100%;font-size:12px;margin-top:10px;line-height:1.6;padding:12px;background:var(--bg)}.message{padding:13px;border-radius:11px;margin:0 0 13px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.85;background:var(--bg)}.message.user{background:var(--accent-soft);margin-left:22px}.message .role{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:7px;color:var(--accent)}.refs{display:flex;flex-direction:column;gap:4px;margin-top:9px;white-space:normal}.refs button{text-align:left;font-size:10px;line-height:1.5}.composer{border-top:1px solid var(--border);padding:15px;background:var(--surface)}.composer textarea{width:100%;min-height:95px;max-height:240px;font-size:12px;resize:vertical;border-radius:10px}.composer-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px}.composer-info{font-size:10px;color:var(--muted);line-height:1.8;padding-top:9px}.images{display:flex;gap:7px;margin-bottom:9px}.image-preview{position:relative}.image-preview img{width:68px;height:56px;object-fit:cover;border-radius:6px;border:1px solid var(--border)}.image-preview button{position:absolute;right:0;top:0;padding:0 4px;font-size:11px}.statusbar{padding:8px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;min-height:32px;align-items:center;background:var(--surface)}.statusbar .status-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.statusbar button{padding:3px 7px;font-size:10px}.toast{position:fixed;bottom:45px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--surface);border-radius:10px;padding:13px 20px;box-shadow:var(--shadow);max-width:min(680px,90vw);z-index:100;font-size:12px;line-height:1.7}.toast.error{background:var(--danger);color:#fff}dialog{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:15px;width:min(820px,90vw);max-height:88vh;padding:26px;box-shadow:var(--shadow)}dialog::backdrop{background:#15231866}dialog header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}dialog header h2{font-size:21px}dialog .detail-text{font-size:13px;white-space:pre-wrap;line-height:1.9;margin-bottom:17px}.detail-section{border-top:1px solid var(--border);padding-top:18px;margin-top:18px}.detail-section h3{font-size:12px;color:var(--accent)}details{margin:12px 0}summary{cursor:pointer;color:var(--accent);font-size:12px;padding:6px 0}kbd{font-size:10px;padding:2px 5px;border:1px solid var(--border);border-radius:4px;background:var(--surface)}.hidden{display:none!important}.demo-label{color:var(--warn);font-size:11px;font-weight:600}a{color:var(--accent)}
+@media(max-width:1100px){.shell{grid-template-columns:180px minmax(350px,1fr) 300px}.shell.no-assistant{grid-template-columns:180px minmax(350px,1fr)}.sidebar{padding-left:12px;padding-right:12px}.topbar,.view{padding-left:22px;padding-right:22px}.brand{padding-left:2px;gap:7px}.brand strong{font-size:15px}}
+@media(max-width:880px){.shell{grid-template-columns:160px minmax(360px,1fr)}.assistant{position:fixed;right:0;top:0;bottom:0;width:min(365px,92vw);box-shadow:-10px 0 35px #0002;z-index:10}.shell.no-assistant{grid-template-columns:160px minmax(360px,1fr)}.form-grid{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.topbar{padding-top:18px}.source-status{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><div id="app"></div><script>/* AI Zotero — dependency-free, runtime-independent algorithms. MIT licensed. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.AIZCore = api;
+})(this, function () {
+  'use strict';
+  const SCHEMA = 1;
+  const STOP = new Set('a an the of in on at to for and or with by from as is are was were be been this that these those we our their it its using use used study studies new based approach via into can not than et al paper results method'.split(' '));
+  const ALIASES = [
+    ['空间转录组', 'spatial transcriptomics spatial omics'], ['空间组学', 'spatial omics transcriptomics'],
+    ['单细胞', 'single cell singlecell'], ['分割', 'segmentation segment'], ['细胞核', 'nuclei nucleus nuclear'],
+    ['细胞', 'cell cellular'], ['病理', 'pathology histopathology histology'], ['扩散模型', 'diffusion generative'],
+    ['生成模型', 'generative generation diffusion'], ['多模态', 'multimodal vision language'],
+    ['多智能体', 'multiagent multi agent'], ['智能体', 'agent agentic'], ['强化学习', 'reinforcement learning'],
+    ['推理', 'reasoning inference'], ['基准', 'benchmark evaluation'], ['机器人', 'robot robotics robotic'],
+    ['超声', 'ultrasound ultrasonography'], ['医学影像', 'medical imaging radiology'], ['脑卒中', 'stroke'],
+    ['阿尔茨海默', 'alzheimer dementia'], ['微胶质', 'microglia microglial'], ['基础模型', 'foundation model'],
+    ['零样本', 'zero shot zeroshot'], ['少样本', 'few shot fewshot'], ['数据集', 'dataset data'],
+    ['蒸馏', 'distillation distilled'], ['大模型', 'large language model llm'], ['评判', 'judge judging'],
+    ['视觉语言', 'vision language vlm'], ['临床诊断', 'clinical diagnosis diagnostic']
+  ];
+  const DEFAULT_PROFILES = [
+    { id: 'bio-vision', name: '生物医学视觉与生成模型', keywords: ['biomedical segmentation', 'histopathology', 'cell segmentation', 'diffusion', 'generative model', 'foundation model'], arxiv: '(all:"biomedical" OR all:"histopathology" OR all:"cell segmentation") AND (all:"diffusion" OR all:"foundation model" OR all:"generative")', epmc: '(biomedical OR histopathology OR "cell segmentation") AND (diffusion OR "foundation model" OR generative)' },
+    { id: 'spatial', name: '空间组学与科学智能体', keywords: ['spatial transcriptomics', 'spatial omics', 'scientific agent', 'data curation', 'multimodal omics'], arxiv: 'all:"spatial transcriptomics" OR all:"spatial omics" OR all:"scientific agent"', epmc: '"spatial transcriptomics" OR "spatial omics" OR "scientific agent"' },
+    { id: 'agents', name: '多智能体推理与 Agent RL', keywords: ['multi agent', 'multiagent', 'reasoning', 'llm judge', 'agentic', 'reinforcement learning'], arxiv: '(all:"multi-agent" OR all:"agentic" OR all:"LLM judge") AND (all:"reasoning" OR all:"reinforcement learning" OR all:"evaluation")', epmc: '("multi-agent" OR agentic OR "LLM judge") AND (reasoning OR "reinforcement learning" OR evaluation)' },
+    { id: 'robotics', name: '医疗机器人与 VLM/VLA', keywords: ['robotic ultrasound', 'medical robotics', 'vision language action', 'vision language model', 'ultrasound simulation'], arxiv: 'all:"robotic ultrasound" OR all:"medical robotics" OR all:"vision language action"', epmc: '"robotic ultrasound" OR "medical robotics" OR "ultrasound simulation"' }
+  ];
+  const DEFAULTS = {
+    schema: SCHEMA, baseURL: 'http://127.0.0.1:8000/v1', model: '', embeddingURL: '', embeddingModel: '',
+    allowAI: false, allowRemoteHTTP: false, autoEnrich: false, autoOrganize: false,
+    useEmbeddings: false, dailyLimit: 50, maxInputChars: 18000, timeoutSeconds: 90,
+    radarEnabled: false, radarHours: 24, radarLookbackDays: 14, radarMaxPages: 3,
+    radarSources: ['arxiv', 'epmc'], profiles: DEFAULT_PROFILES, openOnStartup: false, theme: 'light'
+  };
+  function normalize(s) {
+    return String(s || '').normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  }
+  function tokens(s, limit = 18000) {
+    const text = normalize(String(s || '').slice(0, limit));
+    const out = [];
+    for (const word of text.match(/[\p{Script=Han}]+|[\p{L}\p{N}]+/gu) || []) {
+      if (/\p{Script=Han}/u.test(word)) {
+        out.push(word);
+        for (let i = 0; i < word.length - 1; i++) out.push(word.slice(i, i + 2));
+      } else if (word.length > 1 && !STOP.has(word)) out.push(word);
+    }
+    return out;
+  }
+  function expandQuery(s) {
+    let out = String(s || '');
+    for (const [cn, en] of ALIASES) if (out.includes(cn)) out += ' ' + en;
+    return out;
+  }
+  // A pair of independent 32-bit hashes for cache invalidation, NOT file integrity/security.
+  function fingerprint(value) {
+    const s = typeof value === 'string' ? value : JSON.stringify(value);
+    let a = 2166136261, b = 5381;
+    for (let i = 0; i < s.length; i++) { a = Math.imul(a ^ s.charCodeAt(i), 16777619); b = Math.imul(b, 33) ^ s.charCodeAt(i); }
+    return (a >>> 0).toString(16).padStart(8, '0') + (b >>> 0).toString(16).padStart(8, '0');
+  }
+  function doi(s) {
+    s = String(s || '').trim().replace(/^(?:https?:\/\/(?:dx\.)?doi\.org\/|doi\s*:\s*)/i, '');
+    try { s = decodeURIComponent(s); } catch (_) { /* Preserve malformed escapes, then validate. */ }
+    s = s.toLowerCase().replace(/[\s.,;]+$/, '');
+    return /^10\.\d{4,9}\/\S+$/.test(s) ? s : '';
+  }
+  function arxivID(s) {
+    const m = String(s || '').match(/(?:arxiv\s*:\s*|arxiv\.org\/(?:abs|pdf)\/)((?:\d{4}\.\d{4,5}|[a-z-]+(?:\.[a-z]{2})?\/\d{7}))(?:v\d+)?/i);
+    return m ? m[1].toLowerCase() : '';
+  }
+  function identity(doc) {
+    const d = doi(doc.doi);
+    if (d) return 'doi:' + d;
+    if (doc.pmid) return 'pmid:' + doc.pmid;
+    const a = arxivID(doc.url || doc.extra);
+    if (a) return 'arxiv:' + a;
+    return 'title:' + normalize(doc.title);
+  }
+  function cosine(a, b) {
+    if (!Array.isArray(a) || !Array.isArray(b) || !a.length || a.length !== b.length) return 0;
+    let dot = 0, aa = 0, bb = 0;
+    for (let i = 0; i < a.length; i++) {
+      if (!Number.isFinite(a[i]) || !Number.isFinite(b[i])) return 0;
+      dot += a[i] * b[i]; aa += a[i] ** 2; bb += b[i] ** 2;
+    }
+    return aa && bb ? dot / Math.sqrt(aa * bb) : 0;
+  }
+  function sparseCosine(a, b) {
+    let dot = 0, aa = 0, bb = 0;
+    for (const [k, v] of a) { aa += v * v; dot += v * (b.get(k) || 0); }
+    for (const v of b.values()) bb += v * v;
+    return aa && bb ? dot / Math.sqrt(aa * bb) : 0;
+  }
+  function safeFilename(s, maxBytes = 170) {
+    let name = String(s || 'untitled').normalize('NFC').replace(/[<>:"/\\|?*\x00-\x1f\x7f]/g, '-').replace(/\s+/g, ' ').replace(/^[. ]+|[. ]+$/g, '');
+    if (!name) name = 'untitled';
+    if (/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(name)) name = '_' + name;
+    // UTF-8 byte count without requiring browser globals in the bootstrap sandbox.
+    let result = '', size = 0;
+    for (const ch of name) {
+      const n = ch.codePointAt(0), bytes = n < 0x80 ? 1 : n < 0x800 ? 2 : n < 0x10000 ? 3 : 4;
+      if (size + bytes > maxBytes) break;
+      result += ch; size += bytes;
+    }
+    return result.replace(/[. ]+$/g, '') || 'untitled';
+  }
+  function attachmentName(doc, attachment) {
+    const ext = String(attachment.filename || '').match(/\.([a-z0-9]{1,8})$/i)?.[1] || 'pdf';
+    const prefix = safeFilename(`${doc.year || 'nd'} - ${doc.author || 'Unknown'} - ${doc.title}`, 135);
+    return `${prefix} - ${safeFilename(attachment.key || String(attachment.id), 16)}.${ext.toLowerCase()}`;
+  }
+  function endpoint(base, route = 'chat/completions', allowHTTP = false) {
+    let u; try { u = new URL(String(base || '').trim()); } catch (_) { throw new Error('API 地址无效，请填写完整的 http(s) URL。'); }
+    if (!['http:', 'https:'].includes(u.protocol) || u.username || u.password || u.search || u.hash) throw new Error('API 地址必须是无密码、无查询参数的 http(s) URL。');
+    const local = ['localhost', '127.0.0.1', '[::1]'].includes(u.hostname);
+    if (u.protocol === 'http:' && !local && !allowHTTP) throw new Error('远程 HTTP 会明文传输密钥和论文。请使用 HTTPS，或显式允许远程 HTTP。');
+    let path = u.pathname.replace(/\/+$/, '').replace(/\/(chat\/completions|embeddings)$/, '');
+    if (!path) path = '/v1';
+    u.pathname = path + '/' + route;
+    return u.toString();
+  }
+  function providerScope(base, allowHTTP = false) {
+    return endpoint(base, 'chat/completions', allowHTTP).replace(/\/chat\/completions$/, '');
+  }
+  function validateConfig(input) {
+    const c = { ...DEFAULTS, ...input };
+    endpoint(c.baseURL, 'chat/completions', c.allowRemoteHTTP);
+    if (c.embeddingURL) endpoint(c.embeddingURL, 'embeddings', c.allowRemoteHTTP);
+    for (const [key, lo, hi] of [['dailyLimit', 1, 10000], ['maxInputChars', 2000, 100000], ['timeoutSeconds', 10, 600], ['radarHours', 1, 168], ['radarLookbackDays', 1, 90], ['radarMaxPages', 1, 10]]) {
+      c[key] = Number(c[key]);
+      if (!Number.isInteger(c[key]) || c[key] < lo || c[key] > hi) throw new Error(`${key} 必须是 ${lo}–${hi} 之间的整数。`);
+    }
+    if (!Array.isArray(c.profiles) || c.profiles.length > 12) throw new Error('研究兴趣必须是最多 12 项的 JSON 数组。');
+    const seen = new Set();
+    c.profiles = c.profiles.map(p => {
+      if (!p || !/^[a-z0-9-]{1,40}$/.test(p.id) || seen.has(p.id)) throw new Error('兴趣 id 必须唯一，仅含小写字母、数字和短横线。');
+      seen.add(p.id);
+      if (!String(p.name || '').trim() || !Array.isArray(p.keywords) || p.keywords.length > 40) throw new Error('每项兴趣需要 name 和 keywords 数组（最多 40 个）。');
+      return { id: p.id, name: String(p.name).slice(0, 100), keywords: p.keywords.map(k => String(k).slice(0, 100)), arxiv: String(p.arxiv || '').slice(0, 2000), epmc: String(p.epmc || '').slice(0, 2000) };
+    });
+    c.radarSources = ['arxiv', 'epmc'].filter(s => (c.radarSources || []).includes(s));
+    c.theme = c.theme === 'dark' ? 'dark' : 'light';
+    for (const k of ['allowAI', 'allowRemoteHTTP', 'autoEnrich', 'autoOrganize', 'useEmbeddings', 'radarEnabled', 'openOnStartup']) c[k] = c[k] === true;
+    c.model = String(c.model || '').trim().slice(0, 200);
+    c.embeddingModel = String(c.embeddingModel || '').trim().slice(0, 200);
+    delete c.apiKey; delete c.embeddingKey;
+    return c;
+  }
+  function parseJSON(text) {
+    let s = String(text || '').trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+    try { return JSON.parse(s); } catch (_) {
+      const start = s.indexOf('{'), end = s.lastIndexOf('}');
+      if (start < 0 || end <= start) throw new Error('模型没有返回有效 JSON；未写入标签或分类。');
+      return JSON.parse(s.slice(start, end + 1));
+    }
+  }
+  function validateAnalysis(raw, profiles) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('AI 结果结构错误。');
+    const string = (v, n = 1500) => typeof v === 'string' ? v.slice(0, n) : '';
+    const list = (v, n = 12) => Array.isArray(v) ? [...new Set(v.filter(x => typeof x === 'string').map(x => x.trim().slice(0, 100)).filter(Boolean))].slice(0, n) : [];
+    const result = {
+      summary: string(raw.summary), problem: string(raw.problem), method: string(raw.method), limitations: string(raw.limitations),
+      tasks: list(raw.tasks), datasets: list(raw.datasets), tags: list(raw.tags, 8), aliases: list(raw.aliases, 24),
+      topicIDs: list(raw.topicIDs, 5).filter(id => profiles.some(p => p.id === id))
+    };
+    if (!result.summary.trim()) throw new Error('模型没有提供 summary；未覆盖已有结果。');
+    return result;
+  }
+  function classify(doc, profiles) {
+    const text = ' ' + normalize([doc.title, doc.abstract, doc.ai?.summary, ...(doc.ai?.tags || [])].join(' ')) + ' ';
+    return profiles.map(p => {
+      const hits = p.keywords.filter(k => {
+        const t = normalize(expandQuery(k));
+        return t && (text.includes(' ' + t + ' ') || (tokens(t).length >= 2 && tokens(t).every(w => text.includes(' ' + w + ' '))));
+      });
+      return { id: p.id, name: p.name, hits, score: hits.length };
+    }).filter(p => p.score > 0).sort((a, b) => b.score - a.score);
+  }
+  function parseQuery(raw) {
+    const filters = {};
+    const text = String(raw || '').replace(/\b(year|tag|topic):("[^"]+"|\S+)/gi, (_, k, v) => { filters[k.toLowerCase()] = normalize(v.replace(/^"|"$/g, '')); return ' '; });
+    return { text: text.trim(), filters };
+  }
+  function matchesFilters(doc, f) {
+    if (f.year && String(doc.year) !== f.year) return false;
+    if (f.tag && !(doc.tags || []).concat(doc.ai?.tags || []).some(t => normalize(t).includes(f.tag))) return false;
+    if (f.topic && !(doc.ai?.topicIDs || doc.topicIDs || []).some(t => normalize(t).includes(f.topic))) return false;
+    return true;
+  }
+  function snippet(doc, words = []) {
+    const text = [doc.abstract, doc.ai?.summary, doc.text].filter(Boolean).join('\n').replace(/\s+/g, ' ');
+    const low = text.toLowerCase();
+    let pos = -1;
+    for (const w of words) { const p = low.indexOf(w.toLowerCase()); if (p >= 0 && (pos < 0 || p < pos)) pos = p; }
+    const start = Math.max(0, pos - 80);
+    return (start ? '…' : '') + text.slice(start, start + 320) + (text.length > start + 320 ? '…' : '');
+  }
+  class LocalIndex {
+    constructor(docs = []) { this.docs = new Map(); this.terms = new Map(); this.postings = new Map(); this.totalLength = 0; docs.forEach(d => this.upsert(d)); }
+    upsert(doc) {
+      const id = String(doc.id); this.remove(id);
+      const tf = new Map();
+      for (const [text, weight] of [[doc.title, 5], [doc.author, 2], [doc.abstract, 2], [(doc.tags || []).join(' '), 4], [[...(doc.ai?.aliases || []), ...(doc.ai?.tags || [])].join(' '), 3], [doc.ai?.summary, 2], [doc.text, 0.35]]) {
+        for (const token of tokens(text)) tf.set(token, (tf.get(token) || 0) + weight);
+      }
+      let length = 0;
+      for (const [token, count] of tf) {
+        length += count;
+        if (!this.postings.has(token)) this.postings.set(token, new Map());
+        this.postings.get(token).set(id, count);
+      }
+      this.docs.set(id, doc); this.terms.set(id, { tf, length }); this.totalLength += length;
+    }
+    remove(id) {
+      id = String(id); const old = this.terms.get(id); if (!old) return;
+      for (const t of old.tf.keys()) { const p = this.postings.get(t); p.delete(id); if (!p.size) this.postings.delete(t); }
+      this.totalLength -= old.length; this.terms.delete(id); this.docs.delete(id);
+    }
+    search(query, { limit = 80, vector = null, vectorScope = '' } = {}) {
+      const { text, filters } = parseQuery(query), words = [...new Set(tokens(expandQuery(text)))];
+      const scores = new Map(), n = this.docs.size, avg = this.totalLength / Math.max(1, n);
+      for (const w of words) {
+        const posting = this.postings.get(w); if (!posting) continue;
+        const idf = Math.log(1 + (n - posting.size + 0.5) / (posting.size + 0.5));
+        for (const [id, tf] of posting) {
+          if (!matchesFilters(this.docs.get(id), filters)) continue;
+          const length = this.terms.get(id).length;
+          scores.set(id, (scores.get(id) || 0) + idf * (tf * 2.2) / (tf + 1.2 * (0.25 + 0.75 * length / Math.max(1, avg))));
+        }
+      }
+      if (!words.length) for (const [id, doc] of this.docs) if (matchesFilters(doc, filters)) scores.set(id, Number(doc.year) || 0);
+      let ranked = [...scores].sort((a, b) => b[1] - a[1]);
+      if (vector && vectorScope) {
+        const semantic = [...this.docs].filter(([, d]) => d.vectorScope === vectorScope && matchesFilters(d, filters)).map(([id, d]) => [id, cosine(vector, d.vector)]).filter(([, s]) => s > 0).sort((a, b) => b[1] - a[1]);
+        const rrf = new Map();
+        [ranked.slice(0, 500), semantic.slice(0, 500)].forEach(list => list.forEach(([id], i) => rrf.set(id, (rrf.get(id) || 0) + 1 / (60 + i + 1))));
+        ranked = [...rrf].sort((a, b) => b[1] - a[1]);
+      }
+      return ranked.slice(0, limit).map(([id, score]) => ({ doc: this.docs.get(id), score, snippet: snippet(this.docs.get(id), words), matched: words.filter(w => this.terms.get(id).tf.has(w)).slice(0, 12) }));
+    }
+    nearest(doc, limit = 3, restrict = null) {
+      const query = [doc.title, doc.abstract].join(' '), tf = new Map();
+      for (const t of tokens(query, 7000)) tf.set(t, (tf.get(t) || 0) + 1);
+      const candidates = (restrict ? [...restrict].map(id => ({ doc: this.docs.get(String(id)) })).filter(r => r.doc) : this.search(query, { limit: 60 })).filter(r => String(r.doc.id) !== String(doc.id));
+      const weight = source => new Map([...source].map(([t, f]) => [t, (1 + Math.log(f)) * Math.log(1 + (this.docs.size + 1) / (1 + (this.postings.get(t)?.size || 0)))]));
+      const q = weight(tf);
+      return candidates.map(r => {
+        const d = new Map(); for (const t of tokens([r.doc.title, r.doc.abstract].join(' '), 7000)) d.set(t, (d.get(t) || 0) + 1);
+        return { doc: r.doc, similarity: sparseCosine(q, weight(d)) };
+      }).filter(r => r.similarity > 0.05).sort((a, b) => b.similarity - a.similarity).slice(0, limit);
+    }
+  }
+  function findDuplicates(docs) {
+    const buckets = new Map(), pairs = new Map(), titlePostings = new Map();
+    const add = (a, b, reason, confidence) => {
+      if (String(a.id) === String(b.id) || a.libraryID !== b.libraryID) return;
+      const key = [String(a.id), String(b.id)].sort().join('|');
+      const conflicts = [];
+      if (doi(a.doi) && doi(b.doi) && doi(a.doi) !== doi(b.doi)) conflicts.push('DOI 不同，可能是预印本/正式版或不同论文');
+      if (a.pmid && b.pmid && a.pmid !== b.pmid) conflicts.push('PMID 不同');
+      if (a.itemType && b.itemType && a.itemType !== b.itemType) conflicts.push('条目类型不同');
+      const old = pairs.get(key);
+      if (!old || confidence > old.confidence) pairs.set(key, { key, a: a.id, b: b.id, reason, confidence, conflicts, mergeEligible: reason === '相同 DOI' && !conflicts.length });
+    };
+    for (const doc of docs) {
+      const identifiers = [doi(doc.doi) && ['doi', doi(doc.doi)], doc.pmid && ['pmid', doc.pmid], arxivID(doc.url) && ['arxiv', arxivID(doc.url)], normalize(doc.title).length > 20 && ['title', normalize(doc.title)]].filter(Boolean);
+      for (const [kind, value] of identifiers) {
+        const key = `${doc.libraryID}:${kind}:${value}`, prior = buckets.get(key) || [];
+        for (const other of prior.slice(0, 1)) add(other, doc, { doi: '相同 DOI', pmid: '相同 PMID', arxiv: '相同 arXiv 编号', title: '相同规范化标题' }[kind], kind === 'title' ? 0.92 : 1);
+        prior.push(doc); buckets.set(key, prior);
+      }
+      const words = [...new Set(tokens(doc.title))];
+      for (const w of words) { if (!titlePostings.has(w)) titlePostings.set(w, []); titlePostings.get(w).push(doc); }
+    }
+    for (const a of docs) {
+      const aw = new Set(tokens(a.title)); if (aw.size < 6) continue;
+      const candidates = new Map();
+      [...aw].sort((x, y) => titlePostings.get(x).length - titlePostings.get(y).length).slice(0, 3).forEach(w => {
+        const p = titlePostings.get(w); if (p.length <= 150) p.forEach(b => candidates.set(String(b.id), b));
+      });
+      for (const b of candidates.values()) {
+        if (String(a.id) >= String(b.id) || (a.year && b.year && Math.abs(Number(a.year) - Number(b.year)) > 2)) continue;
+        const bw = new Set(tokens(b.title)), overlap = [...aw].filter(w => bw.has(w)).length;
+        const similarity = overlap / (aw.size + bw.size - overlap);
+        if (similarity >= 0.84) add(a, b, '近似标题（需人工核对）', similarity * 0.9);
+      }
+    }
+    return [...pairs.values()].sort((a, b) => b.confidence - a.confidence);
+  }
+  function rankRadar(papers, profiles, index, seeds = [], now = Date.now()) {
+    const seedSet = new Set(seeds.map(String));
+    const saved = new Set([...index.docs.values()].map(identity));
+    return papers.map(paper => {
+      const topics = classify(paper, profiles), near = index.nearest(paper, 3), seedNear = seedSet.size ? index.nearest(paper, 1, seedSet) : [];
+      const closeness = Math.max(near[0]?.similarity || 0, seedNear[0]?.similarity || 0);
+      const age = Math.max(0, (now - Date.parse(paper.published || '')) / 86400000);
+      const recency = Number.isFinite(age) ? Math.exp(-age / 14) : 0;
+      const relevance = Math.min(1, topics.reduce((s, t) => s + t.score, 0) / 5);
+      const score = 100 * (0.5 * relevance + 0.4 * closeness + 0.1 * recency);
+      const reason = topics.length ? `命中：${topics.flatMap(t => t.hits).slice(0, 5).join('、')}` : '研究主题命中较弱，请核对';
+      return { ...paper, score, topics, near: near.map(r => ({ id: r.doc.id, title: r.doc.title, similarity: r.similarity })), reason, label: closeness >= 0.42 ? '高度相近 · 待核对' : relevance >= 0.4 ? '值得参考' : '探索发现', inLibrary: saved.has(identity(paper)) };
+    }).sort((a, b) => b.score - a.score);
+  }
+  function dateKey(date = new Date()) { return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; }
+  function radarWindow(lastSuccess, lookback = 14, now = Date.now()) {
+    const initial = now - lookback * 86400000, previous = Date.parse(lastSuccess || '');
+    const since = Number.isFinite(previous) ? Math.max(now - 90 * 86400000, previous - 2 * 86400000) : initial;
+    return { since: new Date(since).toISOString().slice(0, 10), until: new Date(now).toISOString().slice(0, 10) };
+  }
+  return { SCHEMA, DEFAULTS, DEFAULT_PROFILES, normalize, tokens, expandQuery, fingerprint, doi, arxivID, identity, cosine, safeFilename, attachmentName, endpoint, providerScope, validateConfig, parseJSON, validateAnalysis, classify, parseQuery, LocalIndex, findDuplicates, rankRadar, dateKey, radarWindow };
+});
+</script><script>/* Offline UI fixture. All records are fictional. No HTTP or AI is performed. */
+(function(){
+  const C=window.AIZCore, index=new C.LocalIndex(), subscribers=new Set();
+  const sample=[
+    ['Generative models for biomedical image understanding','Diffusion-based cell segmentation, topology-aware decoding and zero-shot generalization.','bio-vision','生成模型将分割输出表达为可编辑图像；本条为界面演示数据，不代表真实论文结论。',['diffusion','segmentation']],
+    ['Scientific agents for spatial transcriptomics data curation','Spatial omics datasets, automated metadata extraction and reusable analysis workflows.','spatial','从公开空间组学数据构建可分析资料，关注元数据一致性和可复现性。',['spatial transcriptomics','scientific agent']],
+    ['Selection and judging in multi-agent reasoning systems','LLM judge candidate selection, multi agent reasoning and evaluation.','agents','比较候选生成与答案选择两个环节，分析评判信号的适用边界。',['multiagent','llm judge']],
+    ['Vision-language-action policies for robotic ultrasound','Medical robotics and ultrasound simulation with vision language action models.','robotics','将视觉理解与探头控制联系起来，关注仿真到真实环境的差异。',['medical robotics','ultrasound']],
+    ['Reliable few-shot cell segmentation across imaging modalities','Biomedical segmentation with generative foundation models and calibrated uncertainty.','bio-vision','跨成像模态的少样本分割；演示任务、方法和不确定性标签。',['cell segmentation','foundation model']],
+    ['Benchmarking clinical agents with longitudinal trajectories','Agentic clinical diagnosis, reinforcement learning and reproducible evaluation.','agents','采用纵向病例轨迹组织智能体评估，注意信息泄漏与基线可比性。',['agentic','reinforcement learning']]
+  ];
+  sample.forEach(([title,abstract,topic,summary,tags],i)=>index.upsert({schema:1,id:String(i+1),key:'DEMO000'+i,libraryID:1,itemType:'journalArticle',title,abstract,doi:'10.0000/demo-'+i,year:'2026',author:'Demo Researcher',authors:['Demo Researcher'],date:'2026-09-14',journal:'FICTIONAL · UI demonstration',url:'https://example.org',text:'This is fictional demonstration text, not a real paper. '+abstract,textCoverage:'演示文本（不是真实全文）',tags:['Demo'],topicIDs:[topic],attachments:[{id:100+i,key:'DEMOFILE'+i,filename:'paper-'+i+'.pdf',path:'/demo/paper-'+i+'.pdf',exists:true,stored:true,linked:false}],ai:{summary,problem:'跨数据集泛化',method:'示范方法描述',limitations:'这不是实际文献，只用于检查界面。',tasks:['segmentation'],datasets:[],tags,aliases:['细胞分割','生成模型'],topicIDs:[topic]}}));
+  const papers=[{id:'radar-1',source:'arxiv',title:'Generative foundation models for cell segmentation: an illustrative new paper',abstract:'Biomedical segmentation diffusion foundation model with histopathology evaluation.',published:'2026-09-14',url:'https://example.org',authors:['Demo Author'],firstSeen:'2026-09-14T00:00:00Z'},{id:'radar-2',source:'epmc',title:'Spatial omics discovery with scientific agents: interface example',abstract:'Spatial transcriptomics data curation with scientific agent systems.',published:'2026-09-14',url:'https://example.org',authors:['Demo Author'],firstSeen:'2026-09-14T00:00:00Z'}];
+  const studio={demo:true,ready:true,paused:false,index,warnings:[],status:'离线界面演示 · 所有数据均为虚构',config:JSON.parse(JSON.stringify(C.DEFAULTS)),state:{usage:{calls:0,tokens:0},seeds:['1','3'],failed:{},journal:[],deferred:[],radar:{papers,sources:{arxiv:{lastFetched:'2026-09-14T10:00:00Z',fetched:1,total:1,range:{since:'2026-09-01',until:'2026-09-14'}},epmc:{lastFetched:'2026-09-14T10:00:00Z',fetched:1,total:1,range:{since:'2026-09-01',until:'2026-09-14'}}}}},
+    get docs(){return [...index.docs.values()];},selectedIDs:()=>[],subscribe(fn){subscribers.add(fn);return()=>subscribers.delete(fn);},emit(){subscribers.forEach(fn=>fn());},startWorker(){},safeError:e=>e.message,configSnapshot(){return structuredClone(this.config);},hasKey:()=>false,
+    async saveSettings(c){this.config=C.validateConfig(c);this.emit();},setKey:async()=>{},testConnection:async()=>'DEMO ONLY — no actual connection',async search(q){return index.search(q);},enqueue(){this.status='演示模式：未发起 API 请求';this.emit();},scanLibrary:async()=>({items:6,queued:0}),
+    openItem:async(id)=>{studio.status='演示模式：定位文献 '+id;studio.emit();},openURL:()=>{},async setSeed(id,en){this.state.seeds=en?[...new Set([...this.state.seeds,String(id)])]:this.state.seeds.filter(x=>x!==String(id));this.emit();},
+    getDuplicates:()=>[],organizationPlan(ids){return ids.map(id=>({id,title:index.docs.get(id)?.title,topics:['演示分组'],topicIDs:['bio-vision'],tags:['AI/demo'],source:'演示建议'}));},organize:async()=>0,filePlan:async()=>[],renameFiles:async()=>({count:0,failures:[]}),undoLast:async()=>{},convertLinked:async()=>{},mergeExact:async()=>{},
+    radar(){return C.rankRadar(papers,this.config.profiles,index,this.state.seeds,Date.parse('2026-09-14'));},refreshRadar:async()=>studio.radar(),explainRadar:async()=>[],importPaper:async()=>({id:'1',existed:true}),exportText:async()=>true,
+    assistant:async()=>({answer:'这是离线界面演示，不会调用模型。实际插件会检索选中文献和本地索引后发送必要材料，并提供 [P1] 形式的引用。',references:[{ref:'P1',id:'1',title:sample[0][0]}]})};
+  window.__AI_ZOTERO_DEMO__={studio,core:C};
+})();
+</script><script>/* Plain DOM UI: no remote scripts/fonts, no innerHTML, no executable model output. */
+(function () {
+  'use strict';
+  const doc = document, NS = 'http://www.w3.org/1999/xhtml';
+  let studio, C, app, main, viewNode, statusNode, statsNode, resultNode, conversation, imageNode, chatInput;
+  let semanticActive = false, semanticQuery = '';
+  let view = 'library', organizeTab = 'duplicates', query = '', pageSize = 50, selection = new Set();
+  let assistantVisible = true, searchTimer, renderTimer, statusTimer, toastTimer, unsubscribe, sourceFilter = 'all', chatDraft = '';
+  let chatBusy = false, images = [], messages = [], filePlans = [], fileSelection = new Set(), libraryHits = [];
+  const labelMap = { library: ['文献库', '把时间留给研究，而不是整理。'], radar: ['文献雷达', '找到与你正在做的研究真正相关的新论文。'], organize: ['整理中心', '先看证据，再应用改变。'], settings: ['工作台设置', '你的模型、你的研究方向、你的数据边界。'] };
+  function node(tag, attrs = {}, ...children) {
+    const el = doc.createElementNS(NS, tag);
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value === undefined || value === null) continue;
+      if (key.startsWith('on')) el.addEventListener(key.slice(2).toLowerCase(), event => {
+        try { const result = value(event); if (result?.catch) result.catch(error); } catch (e) { error(e); }
+      });
+      else if (key === 'class') el.className = value;
+      else if (['value', 'checked', 'disabled', 'hidden'].includes(key)) el[key] = value;
+      else el.setAttribute(key, String(value));
+    }
+    for (const child of children.flat(Infinity)) if (child !== null && child !== undefined && child !== false) el.appendChild(typeof child === 'object' ? child : doc.createTextNode(String(child)));
+    return el;
+  }
+  function button(text, onClick, cls = '') { return node('button', { type: 'button', class: cls, onClick }, text); }
+  function hint(text) { return node('p', { class: 'hint' }, text); }
+  function badge(text, cls = '') { return node('span', { class: 'tag ' + cls }, text); }
+  function toast(text, isError = false) {
+    doc.querySelector('.toast')?.remove(); clearTimeout(toastTimer);
+    const t = node('div', { class: 'toast' + (isError ? ' error' : ''), role: isError ? 'alert' : 'status' }, text); doc.body.appendChild(t);
+    toastTimer = setTimeout(() => t.remove(), isError ? 10000 : 5000);
+  }
+  function error(e) { toast(studio?.safeError ? studio.safeError(e) : String(e.message || e), true); }
+  async function busy(el, fn) { const disabled = el.disabled; el.disabled = true; try { return await fn(); } finally { if (el.isConnected) el.disabled = disabled; } }
+  function confirm(text) { return window.confirm(text); }
+  function ids() { return [...selection].filter(id => studio.index.docs.has(String(id))); }
+  function syncSelection() { selection = new Set(studio.selectedIDs()); renderLibraryResults(); }
+  function empty(title, text) { return node('div', { class: 'empty' }, node('strong', {}, title), text); }
+  function switchView(next) { view = next; pageSize = 50; buildShell(); }
+  function toggleAssistant() {
+    assistantVisible = !assistantVisible; const shell = doc.querySelector('.shell');
+    shell.classList.toggle('no-assistant', !assistantVisible);
+    if (assistantVisible) shell.appendChild(buildAssistant()); else doc.querySelector('.assistant')?.remove();
+    const toggle = doc.getElementById('toggle-assistant'); if (toggle) toggle.textContent = assistantVisible ? '收起助手' : '打开助手';
+  }
+  function buildShell() {
+    doc.documentElement.dataset.theme = studio.config.theme;
+    const [title, subtitle] = labelMap[view];
+    const nav = node('nav', { class: 'nav', 'aria-label': '工作台导航' },
+      ...[['library', '▤', '文献库'], ['radar', '◎', '文献雷达'], ['organize', '▦', '整理中心'], ['settings', '⚙', '设置']].map(([key, symbol, text]) =>
+        node('button', { type: 'button', class: view === key ? 'active' : '', 'aria-current': view === key ? 'page' : 'false', onClick: () => switchView(key) }, node('span', { class: 'nav-symbol', 'aria-hidden': 'true' }, symbol), text)));
+    const sidebar = node('aside', { class: 'sidebar' },
+      node('div', { class: 'brand' }, node('div', { class: 'brandmark', 'aria-hidden': 'true' }, 'a'), node('div', {}, node('strong', {}, 'AI Zotero'), node('div', { class: 'eyebrow' }, 'RESEARCH STUDIO'))),
+      nav, node('div', { class: 'sidebar-note' }, node('div', { class: 'eyebrow' }, 'LOCAL FIRST'), '收录一次，持续受用。', node('br'), '普通检索不调用 API。', node('br'), '索引缓存在本机。'),
+      node('div', { class: 'sidebar-bottom' }, node('span', { class: 'dot' }), 'Zotero 个人文献库', node('br'), 'Preview 0.1.0 · 本地优先', studio.demo ? node('div', { class: 'demo-label' }, '界面演示 · 非真实文献数据') : null));
+    viewNode = node('section', { class: 'view', id: 'main-view', 'aria-label': title });
+    statusNode = node('div', { class: 'statusbar', 'aria-live': 'polite' });
+    main = node('main', { class: 'main' }, node('header', { class: 'topbar' },
+      node('div', {}, node('div', { class: 'eyebrow' }, 'YOUR RESEARCH, CONNECTED'), node('h1', {}, title), node('div', { class: 'subtitle' }, subtitle)),
+      node('div', { class: 'top-actions' }, node('button', { type: 'button', id: 'toggle-assistant', class: 'small', onClick: toggleAssistant }, assistantVisible ? '收起助手' : '打开助手'))), viewNode, statusNode);
+    app.replaceChildren(node('div', { class: 'shell' + (assistantVisible ? '' : ' no-assistant') }, sidebar, main, assistantVisible ? buildAssistant() : null));
+    if (view === 'library') buildLibrary();
+    else if (view === 'radar') buildRadar();
+    else if (view === 'organize') buildOrganize();
+    else buildSettings();
+    refreshStatus();
+  }
+  function refreshStatus() {
+    if (!statusNode) return;
+    const failed = Object.keys(studio.state.failed || {}).length;
+    statusNode.replaceChildren(node('span', { class: 'status-text' }, studio.status + (failed ? ` · ${failed} 项待重试` : '')),
+      node('div', { class: 'row' }, node('span', {}, `今日 AI API ${studio.state.usage.calls || 0}/${studio.config.dailyLimit}`),
+        button(studio.paused ? '继续队列' : '暂停队列', () => { studio.paused = !studio.paused; if (!studio.paused) studio.startWorker(); studio.emit(); }, 'small')));
+    if (statsNode) statsNode.replaceChildren(...stats());
+  }
+  function stats() {
+    const docs = studio.docs;
+    return [[docs.length.toLocaleString(), '篇文献 · 本地可搜索'], [docs.filter(d => d.ai).length.toLocaleString(), '篇已缓存 AI 索引'], [String(studio.state.seeds.length), '篇重点关注的种子文献']].map(([n, text]) => node('div', { class: 'stat' }, node('strong', {}, n), node('span', {}, text)));
+  }
+  function buildLibrary() {
+    statsNode = node('div', { class: 'stats' }, ...stats());
+    const input = node('input', { id: 'library-search', type: 'search', value: query, placeholder: '搜索概念、标题、摘要或 PDF 文本…', 'aria-label': '本地文献搜索', onInput: e => {
+      query = e.target.value; semanticActive = false; pageSize = 50; clearTimeout(searchTimer); searchTimer = setTimeout(renderLibraryResults, 140);
+    }, onKeydown: e => { if (e.key === 'Enter') { clearTimeout(searchTimer); renderLibraryResults(); } } });
+    const semantic = button('语义检索', e => busy(e.currentTarget, async () => {
+      const current = input.value.trim(); if (!current) return toast('先输入检索词。');
+      const results = await studio.search(current, true, pageSize);
+      if (input.value.trim() !== current) return; semanticActive = true; semanticQuery = query; libraryHits = results; showLibraryResults(results, true);
+    }));
+    const aiButton = button('AI 索引选中', () => {
+      if (!ids().length) return toast('请先选中文献，或同步 Zotero 中的选择。');
+      if (!studio.config.allowAI) return switchView('settings');
+      studio.enqueue(ids(), { enrich: true }); toast(`已将 ${ids().length} 篇加入队列；已有有效缓存不会重复付费分析。`);
+    }, 'primary small');
+    const toolbar = node('div', { class: 'toolbar' }, node('div', { class: 'row' },
+      button('同步 Zotero 选中', syncSelection, 'small'), aiButton,
+      button('AI 索引全库', () => { if (!studio.config.allowAI) return switchView('settings'); const all = studio.docs.map(d => d.id); if (confirm(`将个人库已建立本地索引的 ${all.length} 篇加入 AI 队列？有效缓存会复用，新分析会调用你的 API，受每日请求上限约束。建议先选 20 篇试用。`)) { studio.enqueue(all, { enrich: true }); toast(`已加入 ${all.length} 篇；可随时暂停队列。`); } }, 'small'),
+      button('分组预览', () => { organizeTab = 'groups'; switchView('organize'); }, 'small')),
+      button('刷新本地索引', e => busy(e.currentTarget, async () => { const r = await studio.scanLibrary(true); toast(`已扫描 ${r.items} 篇；在本地增量更新，AI 结果按内容缓存。`); }), 'small'));
+    resultNode = node('div', { id: 'library-results', 'aria-live': 'polite' });
+    viewNode.append(statsNode);
+    if (!studio.config.allowAI) viewNode.append(node('div', { class: 'banner' }, '本地索引已经可以使用。设置你的 API 后，可为文献一次性生成摘要、双语检索词和分类建议。默认不会向外部 AI 发送任何资料。 ', button('配置 API', () => switchView('settings'), 'small')));
+    viewNode.append(node('div', { class: 'searchbar' }, input, semantic), node('div', { class: 'hint' }, '输入即本地检索；语义检索需点击按钮，同一查询缓存。支持 ', node('kbd', {}, 'year:2026'), ' ', node('kbd', {}, 'tag:segmentation'), ' ', node('kbd', {}, 'topic:spatial'), ' · ', node('kbd', {}, '⌘ / Ctrl K')),
+      toolbar, resultNode);
+    renderLibraryResults();
+  }
+  function renderLibraryResults() {
+    if (view !== 'library' || !resultNode?.isConnected) return;
+    if (semanticActive && semanticQuery === query) { showLibraryResults(libraryHits, true); return; }
+    semanticActive = false; libraryHits = studio.index.search(query, { limit: pageSize }); showLibraryResults(libraryHits, false);
+  }
+  function showLibraryResults(results, semantic) {
+    const counter = node('div', { class: 'section-label' },
+      node('label', { class: 'row' }, node('input', { type: 'checkbox', checked: !!results.length && results.every(r => selection.has(r.doc.id)), 'aria-label': '选择当前显示文献', onChange: e => {
+        results.forEach(r => e.target.checked ? selection.add(r.doc.id) : selection.delete(r.doc.id)); showLibraryResults(results, semantic);
+      } }), `当前显示 ${results.length} 篇 · 已选 ${ids().length}`),
+      node('div', { class: 'row' }, badge(semantic ? 'BM25 + 向量融合' : '本地 BM25 · 零 API', 'green'), button('清空选择', () => { selection.clear(); showLibraryResults(results, semantic); }, 'small ghost')));
+    resultNode.replaceChildren(counter);
+    if (!results.length) resultNode.append(empty(studio.ready ? '还没有匹配文献' : '正在准备工作台', studio.index.docs.size ? '换用关键词、英文术语，或先为文献建立 AI 双语索引。' : '首次使用会在本机读取个人库题录与 Zotero 可提取文本。也可以点击「刷新本地索引」。'));
+    for (const result of results) resultNode.append(libraryCard(result));
+    if (results.length >= pageSize) resultNode.append(button('显示更多', async () => { pageSize += 50; if (semanticActive) { libraryHits = await studio.search(query, true, pageSize); showLibraryResults(libraryHits, true); } else renderLibraryResults(); }, 'small'));
+  }
+  function libraryCard(result) {
+    const d = result.doc;
+    const checkbox = node('input', { type: 'checkbox', checked: selection.has(d.id), 'aria-label': '选择 ' + d.title, onChange: e => {
+      e.target.checked ? selection.add(d.id) : selection.delete(d.id); showLibraryResults(libraryHits, semanticActive);
+    } });
+    return node('article', { class: 'card' + (selection.has(d.id) ? ' selected' : '') }, node('div', { class: 'card-head' }, checkbox,
+      node('div', { class: 'card-body' }, buttonTitle(d.title, () => detail(d)),
+        node('div', { class: 'meta' }, [d.author || d.authors?.[0], d.year, d.journal].filter(Boolean).join(' · ') || '题录信息待补充'),
+        node('div', { class: 'abstract' }, result.snippet || d.ai?.summary || '尚无摘要或可提取正文。'),
+        node('div', { class: 'tags' }, badge(d.ai ? 'AI 已缓存' : '本地已索引', d.ai ? 'green' : ''),
+          d.vector ? badge('含向量') : null,
+          studio.state.seeds.includes(d.id) ? badge('关注种子', 'green') : null,
+          ...[...new Set([...(d.ai?.tags || []), ...(d.tags || []).filter(t => !t.startsWith('AI/'))])].slice(0, 4).map(t => badge(t))),
+        node('div', { class: 'card-actions' }, button('打开 PDF', () => studio.openItem(d.id, true)), button('在 Zotero 中定位', () => studio.openItem(d.id)),
+          button(studio.state.seeds.includes(d.id) ? '取消重点关注' : '设为关注种子', async () => { await studio.setSeed(d.id, !studio.state.seeds.includes(d.id)); renderLibraryResults(); })))));
+  }
+  function buttonTitle(text, onClick) { return button(text || 'Untitled', onClick, 'title-button'); }
+  function detail(d) {
+    const dialog = node('dialog', { 'aria-label': '文献详情' });
+    dialog.append(node('header', {}, node('h2', {}, d.title), button('关闭', () => dialog.close(), 'small')),
+      node('div', { class: 'meta' }, [d.author, d.year, d.journal, d.doi].filter(Boolean).join(' · ')),
+      node('div', { class: 'row' }, button('打开 PDF', () => studio.openItem(d.id, true), 'primary small'), button('在 Zotero 定位', () => studio.openItem(d.id), 'small'),
+        button('建立 / 更新 AI 索引', () => { if (!studio.config.allowAI) { dialog.close(); switchView('settings'); return; } studio.enqueue([d.id], { enrich: true }); toast('已排队；处理后重新打开文献卡片查看。'); }, 'small'),
+        button('围绕这篇提问', () => { selection = new Set([d.id]); dialog.close(); assistantVisible = true; buildShell(); chatInput?.focus(); }, 'small')),
+      node('div', { class: 'banner' }, d.textCoverage, d.textTruncated ? '。本地正文已截断；不是整篇全文覆盖。' : ''),
+      detailSection('原始摘要', d.abstract || '没有摘要。'));
+    if (d.ai) {
+      dialog.append(detailSection('AI 速览 · 缓存结果，需核对原文', d.ai.summary), detailSection('研究问题', d.ai.problem), detailSection('方法', d.ai.method), detailSection('局限 / 缺失证据', d.ai.limitations),
+        detailSection('任务与数据集', [...(d.ai.tasks || []), ...(d.ai.datasets || [])].join(' · ')),
+        detailSection('双语检索词', (d.ai.aliases || []).join(' · ')));
+    } else dialog.append(hint('尚未调用 AI 分析此篇。摘要、标签和本地提取文本仍可直接搜索。'));
+    if (d.text) dialog.append(node('details', {}, node('summary', {}, '查看本地提取文本（预览前 12,000 字符）'), node('div', { class: 'detail-text' }, d.text.slice(0, 12000))));
+    dialog.addEventListener('close', () => dialog.remove(), { once: true }); doc.body.appendChild(dialog); dialog.showModal();
+  }
+  function detailSection(title, text) { return node('section', { class: 'detail-section' }, node('h3', {}, title), node('div', { class: 'detail-text' }, text || '证据不足 / 未提供')); }
+  function buildRadar() {
+    statsNode = null;
+    const sources = node('div', { class: 'source-status' });
+    for (const source of studio.config.radarSources) {
+      const s = studio.state.radar.sources[source] || {};
+      sources.append(node('div', { class: 'card' }, node('strong', {}, source === 'arxiv' ? 'arXiv' : 'Europe PMC / PubMed'), node('br'),
+        s.lastFetched ? `最近抓取：${new Date(s.lastFetched).toLocaleString()}` : '尚未抓取', node('br'),
+        s.range ? `查询区间：${s.range.since} — ${s.range.until}` : '按兴趣增量检索，保留两天重叠窗口', node('br'),
+        s.error ? node('span', { class: 'demo-label' }, s.error) : `最近返回 ${s.fetched || 0} / ${s.total || 0} 篇`,
+        s.truncated ? node('div', { class: 'demo-label' }, '结果已截断，尚未完整覆盖；请缩窄兴趣或提高分页上限。') : null));
+    }
+    const refresh = button(studio.radarBusy ? '正在更新…' : '立即更新雷达', e => busy(e.currentTarget, async () => {
+      if (!studio.config.radarEnabled) return switchView('settings'); await studio.refreshRadar(); buildShell();
+    }), 'primary'); refresh.disabled = studio.radarBusy;
+    const rows = studio.radar();
+    let shown = rows.filter(p => sourceFilter === 'all' || sourceFilter === 'similar' && p.label.startsWith('高度') || sourceFilter === 'useful' && p.label === '值得参考' || sourceFilter === 'unsaved' && !p.inLibrary).slice(0, pageSize);
+    viewNode.append(node('div', { class: 'toolbar' }, node('div', { class: 'row' }, refresh, button('编辑研究兴趣', () => switchView('settings'))), badge('本地排序 · 不等于相关概率', 'green')), sources,
+      node('div', { class: 'banner' }, '雷达根据兴趣关键词、与库内文献的文本相似度以及时间排序。关注种子会额外参与匹配。「高度相近」不是已证实的竞争关系；逐篇 AI 解释可选且会缓存。Zotero 关闭时不运行。'),
+      node('div', { class: 'tabbar' }, ...[['all', '全部'], ['similar', '高度相近'], ['useful', '值得参考'], ['unsaved', '尚未入库']].map(([value, label]) => button(label, () => { sourceFilter = value; pageSize = 50; buildShell(); }, sourceFilter === value ? 'active' : ''))),
+      node('div', { class: 'section-label' }, `缓存 ${rows.length} 篇 · 当前显示 ${shown.length} 篇`));
+    if (!shown.length) viewNode.append(empty('让值得读的论文主动出现', studio.config.radarEnabled ? '点击「立即更新雷达」，或等待 Zotero 运行期间的定时更新。也可能当前过滤条件下没有结果；请查看来源状态。' : '到设置中确认研究兴趣并启用雷达。查询将发送到公开文献源，不需要 AI API。'));
+    for (const paper of shown) viewNode.append(radarCard(paper));
+    if (shown.length >= pageSize) viewNode.append(button('显示更多', () => { pageSize += 50; buildShell(); }, 'small'));
+  }
+  function radarCard(p) {
+    const details = button('展开摘要', () => {
+      const dialog = node('dialog', { 'aria-label': '雷达文献详情' }, node('header', {}, node('h2', {}, p.title), button('关闭', e => e.currentTarget.closest('dialog').close(), 'small')),
+        detailSection('原始摘要', p.abstract), detailSection('匹配依据', p.reason), p.ai ? detailSection('AI 解释（仅依据题录与摘要）', p.ai) : null);
+      dialog.addEventListener('close', () => dialog.remove(), { once: true }); doc.body.appendChild(dialog); dialog.showModal();
+    }, 'small');
+    return node('article', { class: 'card' },
+      node('div', { class: 'card-head' }, node('div', { class: 'card-body' }, node('div', { class: 'tags' }, badge(p.label, p.label.startsWith('高度') ? 'green' : ''), p.inLibrary ? badge('已在文献库') : null),
+        buttonTitle(p.title, () => studio.openURL(p.url)), node('div', { class: 'meta' }, [p.published, p.journal || p.source, p.authors?.[0]].filter(Boolean).join(' · '))),
+        node('div', { class: 'score', title: '本地启发式排序分，非概率' }, String(Math.round(p.score)), node('div', { class: 'tiny muted' }, '排序分'))),
+      node('div', { class: 'abstract' }, p.abstract ? p.abstract.slice(0, 320) + (p.abstract.length > 320 ? '…' : '') : '来源未提供摘要；相关性证据较弱。'),
+      node('div', { class: 'hint' }, p.reason),
+      p.near.length ? node('div', { class: 'nearest' }, '与你的文献相近：', button(p.near[0].title, () => detail(studio.index.docs.get(String(p.near[0].id))), 'small ghost')) : null,
+      p.ai ? node('div', { class: 'nearest' }, node('strong', {}, 'AI 解释 · 已缓存'), node('br'), p.ai) : null,
+      node('div', { class: 'card-actions' }, button('查看来源', () => studio.openURL(p.url)), details,
+        button(p.ai ? '读取缓存解释' : 'AI 解释相关性', e => busy(e.currentTarget, async () => { if (!studio.config.allowAI) return switchView('settings'); await studio.explainRadar([p.id]); buildShell(); })),
+        button(p.inLibrary ? '定位已有条目' : '加入 Zotero', e => busy(e.currentTarget, async () => {
+          if (!p.inLibrary && !confirm(`将以下题录与摘要加入 Zotero 个人库？不会自动下载 PDF。\n\n${p.title}`)) return;
+          const result = await studio.importPaper(p.id); toast(result.existed ? '已存在，未重复导入。' : '已导入题录与摘要，正在建立本地索引。'); if (result.existed) await studio.openItem(result.id); buildShell();
+        }))));
+  }
+  function buildOrganize() {
+    statsNode = null;
+    viewNode.append(node('div', { class: 'tabbar' }, ...[['duplicates', '重复文献'], ['groups', '分组建议'], ['files', '附件管理'], ['history', '操作记录']].map(([key, title]) => button(title, () => { organizeTab = key; buildShell(); }, organizeTab === key ? 'active' : ''))));
+    if (organizeTab === 'duplicates') buildDuplicates();
+    else if (organizeTab === 'groups') buildGroups();
+    else if (organizeTab === 'files') buildFiles();
+    else buildHistory();
+  }
+  function buildDuplicates() {
+    const pairs = studio.getDuplicates();
+    viewNode.append(node('div', { class: 'banner' }, '自动比对 DOI、PMID、arXiv 编号、规范化标题和近似标题。不同 DOI 的预印本/正式版只提示，不自动合并。合并会改变题录关系，先备份整个 Zotero 数据目录。'),
+      node('div', { class: 'section-label' }, `发现 ${pairs.length} 组候选 · 以下并非自动判定为同一论文`));
+    if (!pairs.length) viewNode.append(empty('没有发现重复候选', '新文献完成本地索引后，重复检测会同步更新。无需调用 AI。'));
+    for (const pair of pairs.slice(0, 150)) {
+      const a = studio.index.docs.get(String(pair.a)), b = studio.index.docs.get(String(pair.b)); if (!a || !b) continue;
+      const select = node('select', { 'aria-label': '选择保留的主记录' }, node('option', { value: '' }, '请选择要保留的主记录'), node('option', { value: a.id }, '保留 A 的题录字段'), node('option', { value: b.id }, '保留 B 的题录字段'));
+      const merge = button('确认合并', e => busy(e.currentTarget, async () => {
+        const master = select.value; if (!master) return toast('先选择需要保留的主记录。');
+        if (!confirm(`此操作不能通过插件恢复原始合并关系。\n\n${pair.reason}\n主记录字段采用 ${master === a.id ? 'A' : 'B'}，附件和关系由 Zotero 原生合并处理。请确认已经备份，并且确为同一论文。\n\n继续合并？`)) return;
+        await studio.mergeExact(master, master === a.id ? b.id : a.id); buildShell();
+      }), 'danger small');
+      merge.disabled = !pair.mergeEligible;
+      viewNode.append(node('article', { class: 'card' }, badge(pair.reason, pair.conflicts.length ? 'warning' : 'green'),
+        node('div', { class: 'meta' }, `A · ${a.year || '无年份'} · ${a.attachments.length} 个附件 · ${a.doi || '无 DOI'}`), buttonTitle(a.title, () => detail(a)),
+        node('div', { class: 'meta' }, `B · ${b.year || '无年份'} · ${b.attachments.length} 个附件 · ${b.doi || '无 DOI'}`), buttonTitle(b.title, () => detail(b)),
+        pair.conflicts.length ? node('div', { class: 'banner warning' }, pair.conflicts.join('；')) : null,
+        node('div', { class: 'card-actions' }, button('核对 A', () => studio.openItem(a.id)), button('核对 B', () => studio.openItem(b.id)), pair.mergeEligible ? select : hint('仅相同类型、相同 DOI 且无已知标识冲突的候选提供插件内合并。'), merge)));
+    }
+    if (pairs.length > 150) viewNode.append(hint('当前仅展示前 150 组；处理后会显示后续候选。'));
+  }
+  function buildGroups() {
+    const chosen = ids(), scope = chosen.length ? chosen : studio.docs.map(d => d.id), plans = studio.organizationPlan(scope);
+    viewNode.append(node('div', { class: 'banner' }, `预览范围：${chosen.length ? '已选中的 ' + chosen.length : '个人库全部 ' + scope.length} 篇。仅在 AI Zotero 集合下添加分类，以及添加 AI/ 前缀标签。已有人工标签与集合不会移除。`),
+      node('div', { class: 'toolbar' }, node('span', { class: 'hint' }, `${plans.length} 篇有分组建议；无匹配的文献不强行分类。`),
+        button(`应用 ${plans.length} 篇的建议`, e => busy(e.currentTarget, async () => {
+          if (!plans.length) return;
+          if (!confirm(`将为 ${plans.length} 篇文献添加预览中的标签和集合。不会移动、删除 PDF，也不会移除现有人工分类。继续？`)) return;
+          const count = await studio.organize(plans.map(p => p.id)); toast(`已添加 ${count} 篇的标签/分组。操作记录中可逐条撤销。`); buildShell();
+        }), 'primary')));
+    if (!plans.length) viewNode.append(empty('暂无分组建议', '在设置中补充兴趣关键词，或为文献建立 AI 索引。优先选择一小批文献检查分类质量。'));
+    for (const p of plans.slice(0, 150)) viewNode.append(node('article', { class: 'card' }, node('h3', {}, p.title),
+      node('div', { class: 'tags' }, badge(p.source), ...p.topics.map(t => badge('AI Zotero / ' + t, 'green')), ...p.tags.map(t => badge(t)))));
+    if (plans.length > 150) viewNode.append(hint(`展示前 150 条；应用按钮将处理预览范围中全部 ${plans.length} 条建议。`));
+  }
+  function buildFiles() {
+    const list = node('div');
+    const render = () => {
+      const renames = filePlans.filter(p => p.action === 'rename'), missing = filePlans.filter(p => p.action === 'missing').length;
+      list.replaceChildren(node('div', { class: 'section-label' }, `${filePlans.length} 个附件 · ${renames.length} 个建议改名 · ${missing} 个缺失 · 已选 ${fileSelection.size}`));
+      if (!filePlans.length) list.append(empty('附件保持一个可信来源', '点击「扫描附件」检查路径、缺失文件与命名。不会先移动文件再补链接。'));
+      for (const p of filePlans.slice(0, 150)) {
+        const check = node('input', { type: 'checkbox', checked: fileSelection.has(p.id), disabled: p.action !== 'rename', 'aria-label': '选择重命名 ' + p.filename, onChange: e => { e.target.checked ? fileSelection.add(p.id) : fileSelection.delete(p.id); render(); } });
+        list.append(node('article', { class: 'card file-row' }, node('div', { class: 'row' }, check,
+          badge({ missing: '文件缺失', linked: '外链文件', rename: '可统一命名', ok: '已规范 / 无需更改' }[p.action], p.action === 'missing' ? 'warning' : ''), node('strong', {}, p.title)),
+          node('div', { class: 'file-name' }, p.filename), p.action === 'rename' ? node('div', { class: 'file-name' }, '→ ' + p.after) : null,
+          node('div', { class: 'tiny muted' }, p.path || '未找到文件路径'),
+          p.action === 'linked' ? node('div', { class: 'card-actions' }, button('复制进 Zotero 管理存储', e => busy(e.currentTarget, async () => {
+            if (!confirm(`将该外链附件转换为 Zotero 管理附件。磁盘原始文件保留，但原外链条目会由 Zotero 替换，附件 key 可能改变；插件不能撤销此转换。请先备份并核对批注。\n\n${p.filename}\n\n继续？`)) return;
+            await studio.convertLinked(p.id); filePlans = []; toast('转换完成；原始磁盘文件保留。稍后重新扫描，检查附件和批注。'); render();
+          }))) : null));
+      }
+      if (filePlans.length > 150) list.append(hint('列表仅显示前 150 个附件。导出清单包含全部附件；改名只执行已勾选的项目。'));
+    };
+    viewNode.append(node('div', { class: 'banner' }, '统一文件管理以 Zotero 管理存储为准，而不是将 PDF 平铺到额外目录。重命名保留附件身份并拒绝覆盖。扫描件不会自动 OCR；缺失附件不会伪装成已修复。'),
+      node('div', { class: 'toolbar' }, node('div', { class: 'row' },
+        button('扫描附件', e => busy(e.currentTarget, async () => { filePlans = await studio.filePlan(); fileSelection.clear(); render(); }), 'primary'),
+        button('勾选当前显示的可改名附件', () => { filePlans.slice(0, 150).filter(p => p.action === 'rename').forEach(p => fileSelection.add(p.id)); render(); }, 'small')),
+        node('div', { class: 'row' }, button('执行勾选重命名', e => busy(e.currentTarget, async () => {
+          const plans = filePlans.filter(p => fileSelection.has(p.id)); if (!plans.length) return toast('先扫描并勾选要改名的附件。');
+          if (!confirm(`执行已预览的 ${plans.length} 个附件重命名？不会覆盖同名目标，可在操作记录中逐个撤销。`)) return;
+          const r = await studio.renameFiles(plans); toast(`${r.count} 个改名成功，${r.failures.length} 个未完成。`, !!r.failures.length);
+          filePlans = await studio.filePlan(); fileSelection.clear(); render();
+        }), 'small'), button('导出文件清单', async () => {
+          if (!filePlans.length) return toast('先扫描附件。');
+          const escape = value => { let s = String(value ?? ''); if (/^[=+\-@]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
+          const rows = [['title', 'attachmentID', 'filename', 'path', 'exists', 'action', 'suggestedName'], ...filePlans.map(p => [p.title, p.id, p.filename, p.path, p.exists, p.action, p.after])];
+          const saved = await studio.exportText('ai-zotero-files.csv', '\uFEFF' + rows.map(r => r.map(escape).join(',')).join('\r\n'), window); if (saved) toast('附件清单已导出（包含本地路径，请谨慎分享）。');
+        }, 'small'))), list); render();
+  }
+  function buildHistory() {
+    const rows = [...studio.state.journal].reverse().slice(0, 60);
+    viewNode.append(node('div', { class: 'banner' }, '「撤销」仅覆盖本插件添加的标签/集合，以及未被其他操作改变的文件名；每次撤销一个条目/附件。手工后续添加的其他标签不会被覆盖。合并与外链转管理附件不支持插件撤销。'),
+      node('div', { class: 'toolbar' }, button('撤销最近一次可逆操作', e => busy(e.currentTarget, async () => {
+        if (!confirm('撤销最近一个条目或附件上的可逆操作？开启自动分组时，该条目会退出自动分组，避免立即被重新添加。')) return;
+        await studio.undoLast(); buildShell();
+      }), 'primary'), button('重试失败索引', () => { const failed = Object.keys(studio.state.failed); studio.enqueue(failed, { enrich: true }); toast(`已重新排队 ${failed.length} 篇。`); }, 'small')));
+    for (const [id, info] of Object.entries(studio.state.failed || {})) viewNode.append(node('div', { class: 'banner warning' }, `条目 ${id}：${info.message}`));
+    for (const warning of studio.warnings) viewNode.append(node('div', { class: 'banner warning' }, warning));
+    if (!rows.length) viewNode.append(empty('暂无写入记录', '普通搜索和 AI 问答不会修改你的题录或文件。'));
+    for (const r of rows) viewNode.append(node('article', { class: 'card' }, node('div', { class: 'row' }, badge({ organize: '标签 / 分组', rename: '重命名', convert: '转管理附件', merge: '合并文献' }[r.type] || r.type), badge({ done: '已完成', undone: '已撤销', prepared: '待核对：可能中断', failed: '失败 / 需核对' }[r.status] || r.status)),
+      node('div', { class: 'meta' }, new Date(r.at).toLocaleString()), node('div', { class: 'hint' }, r.type === 'rename' ? `${r.payload.before} → ${r.payload.after}` : r.type === 'organize' ? `条目 ${r.payload.id} · 添加 ${(r.payload.tags || []).length} 个标签和 ${(r.payload.collections || []).length} 个集合` : '此操作不提供插件内撤销，请核对 Zotero 原始记录。')));
+  }
+  function buildSettings() {
+    statsNode = null;
+    const cfg = studio.configSnapshot(), fields = {};
+    function field(key, label, help = '', type = 'text', wide = false) {
+      const input = node('input', { type, value: cfg[key] ?? '', id: 'setting-' + key, autocomplete: type === 'password' ? 'new-password' : 'off' }); fields[key] = input;
+      return node('label', { class: 'field' + (wide ? ' wide' : ''), for: input.id }, label, input, help ? node('small', {}, help) : null);
+    }
+    function check(key, label) {
+      const input = node('input', { type: 'checkbox', checked: cfg[key] === true, id: 'setting-' + key }); fields[key] = input;
+      return node('label', { class: 'check', for: input.id }, input, node('span', {}, label));
+    }
+    const mainAPI = node('section', { class: 'settings-section' }, node('h2', {}, '连接你自己的模型'),
+      hint('采用 Chat Completions 的 OpenAI-compatible 接口。支持 localhost、任意端口、自定义路径和直接填写 /chat/completions 完整地址；没有硬编码模型名单。'),
+      node('div', { class: 'form-grid' }, field('baseURL', 'API Base URL', '例：http://127.0.0.1:8000/v1 或 https://your-provider.example/api/v1', 'url', true),
+        field('model', 'Chat / 多模态模型名', '填写服务实际支持的模型 ID。图像能力取决于所选模型。'), field('apiKey', 'API Key', '留空保留该端点已存密钥；切换端点不会复用其他端点的密钥。', 'password')),
+      check('allowAI', '允许将题录、有限正文片段、研究兴趣和显式选择的图片发送到上述 AI 服务。默认关闭。'),
+      check('allowRemoteHTTP', '允许非本机的明文 HTTP（不推荐；API 密钥及内容可能被截获）。'),
+      node('div', { class: 'row' }, button('保存后测试连接', e => busy(e.currentTarget, async () => { if (await save()) toast('模型回复：' + (await studio.testConnection()).slice(0, 200)); }), 'small'),
+        button('删除当前端点密钥', async () => { if (!confirm('删除已保存设置中的 Chat 端点密钥？尚未保存的新地址不受影响。')) return; await studio.setKey(studio.config.baseURL, ''); toast('该端点密钥已删除。'); }, 'small danger')));
+    const embedding = node('section', { class: 'settings-section' }, node('h2', {}, '语义检索 · 可选'),
+      check('useEmbeddings', '建立文献向量；每篇首次额外调用一次 embedding。普通检索仍在本地执行。'),
+      node('div', { class: 'form-grid' }, field('embeddingURL', 'Embedding Base URL', '留空使用 Chat 地址；独立地址可有独立密钥。', 'url', true), field('embeddingModel', 'Embedding 模型名'), field('embeddingKey', 'Embedding API Key', '留空保留该端点的密钥；同一端点与 Chat 共享凭据。', 'password')),
+      hint('点击「语义检索」时，仅对新查询调用一次 embedding；最近 200 条查询按模型和端点隔离缓存。更换向量模型后需要重新为文献建立索引，旧向量不会混用。'));
+    const auto = node('section', { class: 'settings-section' }, node('h2', {}, '初次处理与成本控制'),
+      check('autoEnrich', '新收录或内容变化时，自动生成摘要、任务/数据集标签和中英双语检索词。'),
+      check('autoOrganize', '本地索引完成后自动添加建议分组和 AI/ 标签；从不自动合并文献、搬移或删除文件。'),
+      node('div', { class: 'form-grid' }, field('dailyLimit', '每日 API 请求上限', '失败重试也计入上限；文献队列超额后延至后续日期。不是金额或 token 上限。', 'number'),
+        field('maxInputChars', '单篇 AI 输入字符上限', '截断的输入不等于读完整篇论文。', 'number'), field('timeoutSeconds', '单次 API 超时（秒）', '', 'number')),
+      hint('新文献先建立不付费的本地索引，AI 服务失败不会阻断本地搜索。缓存以正文内容、模型、端点、兴趣配置和提示版本共同判定是否失效。'));
+    const profileArea = node('textarea', { class: 'code-input', id: 'setting-profiles', 'aria-label': '研究兴趣 JSON', spellcheck: 'false' }, JSON.stringify(cfg.profiles, null, 2));
+    const sourceInputs = {};
+    const radar = node('section', { class: 'settings-section' }, node('h2', {}, '个性化文献雷达'),
+      check('radarEnabled', '启用定时雷达；研究兴趣检索式将发送到选中的公开文献源。无需 AI API。'),
+      node('div', { class: 'row' }, ...[['arxiv', 'arXiv'], ['epmc', 'Europe PMC / PubMed']].map(([key, title]) => {
+        const input = node('input', { type: 'checkbox', checked: cfg.radarSources.includes(key) }); sourceInputs[key] = input; return node('label', { class: 'check' }, input, title);
+      })),
+      node('div', { class: 'form-grid' }, field('radarHours', '更新间隔（小时）', '默认每日；最短 1 小时。仅 Zotero 运行时执行，重新打开后补查。', 'number'),
+        field('radarLookbackDays', '首次检索回溯（天）', '后续按来源增量更新，含两天重叠窗口。', 'number'), field('radarMaxPages', '每来源每轮分页上限', '每页最多 100 篇。达到上限会明确提示，不声称完整覆盖。', 'number')),
+      node('details', { open: 'open' }, node('summary', {}, '研究兴趣与检索式（可编辑 JSON）'),
+        hint('已预置生物医学视觉、空间组学、多智能体和医疗机器人方向。keywords 用于本地排序；arxiv 与 epmc 分别使用各来源检索语法。可删除不关注的方向。'), profileArea,
+        button('恢复研究方向预设', () => { if (confirm('用预设兴趣替换当前编辑框？保存前不会改变已存设置。')) profileArea.value = JSON.stringify(C.DEFAULT_PROFILES, null, 2); }, 'small')));
+    const theme = node('select', { id: 'setting-theme', 'aria-label': '主题' }, node('option', { value: 'light' }, '浅色 · Sage'), node('option', { value: 'dark' }, '深色 · Forest')); theme.value = cfg.theme;
+    const presentation = node('section', { class: 'settings-section' }, node('h2', {}, '工作台与数据'), node('label', { class: 'field' }, '界面主题', theme),
+      check('openOnStartup', '启动 Zotero 后自动打开 AI 工作台；原生 Zotero 窗口和功能仍保留。'),
+      hint('索引、雷达缓存与操作记录位于 Zotero 数据目录下的 ai-zotero 子目录，不写入 zotero.sqlite。密钥使用 Zotero/Mozilla 登录管理器，不写入配置 JSON。缓存不受 Zotero 附件同步保证；备份整个数据目录。'),
+      hint('首版只处理个人库，不对共享群组库写入。图像通过助手显式上传；不会自动把每篇 PDF 渲染成图片并发送。AI 输出和相似度只供辅助判断。'));
+    async function save() {
+      if (!studio.ready) throw new Error('尚未初始化完成；请先解决状态栏中的索引错误，避免覆盖旧缓存。');
+      const input = { ...cfg };
+      for (const [key, field] of Object.entries(fields)) if (!['apiKey', 'embeddingKey'].includes(key)) input[key] = field.type === 'checkbox' ? field.checked : field.type === 'number' ? Number(field.value) : field.value.trim();
+      try { input.profiles = JSON.parse(profileArea.value); } catch (_) { throw new Error('JSON 语法错误：请检查研究兴趣数组中的引号和逗号。'); }
+      input.theme = theme.value; input.radarSources = Object.keys(sourceInputs).filter(s => sourceInputs[s].checked);
+      const valid = C.validateConfig(input);
+      if (valid.allowAI && (!cfg.allowAI || cfg.baseURL !== valid.baseURL) && !confirm(`确认允许向此 AI 端点发送所需题录、有限正文片段、兴趣与显式选择的图片？\n\n${valid.baseURL}\n\n请确认你信任该服务并有权处理相关论文。`)) return false;
+      if (valid.autoOrganize && !cfg.autoOrganize && !confirm('开启自动分组后，新索引会在个人库中添加 AI 标签与集合。不会移除人工分类。建议先用少量文献验证建议质量。继续？')) return false;
+      await studio.saveSettings(valid, { apiKey: fields.apiKey.value.trim(), embeddingKey: fields.embeddingKey.value.trim() });
+      fields.apiKey.value = ''; fields.embeddingKey.value = ''; Object.assign(cfg, valid); doc.documentElement.dataset.theme = valid.theme;
+      toast('设置已保存。可回到文献库选择少量文献建立 AI 索引。'); return true;
+    }
+    viewNode.append(mainAPI, embedding, auto, radar, presentation,
+      node('div', { class: 'row' }, button('保存设置', e => busy(e.currentTarget, save), 'primary'), button('返回文献库', () => switchView('library'))));
+  }
+  function buildAssistant() {
+    conversation = node('div', { class: 'conversation', 'aria-label': '助手对话', 'aria-live': 'polite' });
+    imageNode = node('div', { class: 'images' });
+    chatInput = node('textarea', { id: 'assistant-question', placeholder: '询问已选文献，或上传论文图像…', value: chatDraft, onInput: e => { chatDraft = e.target.value; }, 'aria-label': '助手问题', onKeydown: e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+    }, onPaste: e => {
+      const files = [...(e.clipboardData?.items || [])].filter(i => i.kind === 'file' && i.type.startsWith('image/')).map(i => i.getAsFile());
+      if (files.length) { e.preventDefault(); addImages(files); }
+    } });
+    const picker = node('input', { type: 'file', accept: 'image/png,image/jpeg,image/webp', multiple: 'multiple', class: 'hidden', 'aria-label': '选择图片', onChange: async e => { await addImages([...e.target.files]); e.target.value = ''; } });
+    const send = button(chatBusy ? '正在思考…' : '发送', sendMessage, 'primary'); send.id = 'assistant-send'; send.disabled = chatBusy;
+    const panel = node('aside', { class: 'assistant', 'aria-label': '多模态文献助手', onDragover: e => e.preventDefault(), onDrop: async e => { e.preventDefault(); await addImages([...e.dataTransfer.files]); } },
+      node('header', { class: 'assistant-head' }, node('div', { class: 'row' }, node('h2', {}, '研究助手'), button('×', toggleAssistant, 'small ghost')),
+        node('div', { class: 'subtitle' }, '先检索你的资料，再回答你的问题。'), node('div', { class: 'row' }, badge('支持图像', 'green'), badge('回答不执行文件操作'))),
+      conversation,
+      node('div', { class: 'composer' }, imageNode, chatInput, picker,
+        node('div', { class: 'composer-actions' }, button('＋ 添加图片', () => picker.click(), 'small'), send),
+        node('div', { class: 'composer-info' }, '拖入或粘贴 PNG/JPEG/WebP · 最多 2 张，每张 8 MB', node('br'), '优先引用已选文献；最多检索 6 篇。⌘ / Ctrl Enter 发送。')));
+    renderConversation(); renderImages(); return panel;
+  }
+  function renderConversation() {
+    if (!conversation) return;
+    conversation.replaceChildren();
+    if (!messages.length) conversation.append(node('div', { class: 'assistant-welcome' }, node('h3', {}, '从理解一篇论文开始。'),
+      '选择一篇或几篇文献，围绕研究问题、方法和可复用实验展开讨论。',
+      button('这几篇论文的方法有什么关键差异？', () => { chatInput.value = '这几篇论文的方法有什么关键差异？请引用证据并指出信息缺口。'; chatInput.focus(); }, 'suggestion'),
+      button('哪些工作最值得作为我的 baseline？', () => { chatInput.value = '根据已选文献，哪些工作最值得作为 baseline？请说明任务匹配、比较前提和未知信息。'; chatInput.focus(); }, 'suggestion'),
+      node('p', { class: 'tiny' }, '模型只会看到所需题录、文本片段和本次图片，不会获得整个文献库的执行权限。')));
+    for (const m of messages) conversation.append(node('div', { class: 'message ' + m.role }, node('div', { class: 'role' }, m.role === 'user' ? 'YOU' : 'RESEARCH ASSISTANT'),
+      m.content, m.imageCount ? node('div', { class: 'tiny muted' }, `本条含 ${m.imageCount} 张图片`) : null,
+      m.references?.length ? node('div', { class: 'refs' }, ...m.references.map(r => button(`[${r.ref}] ${r.title}`, () => studio.openItem(r.id), 'small'))) : null));
+    if (chatBusy) conversation.append(node('div', { class: 'message', role: 'status' }, '正在检索已缓存材料并等待模型回复…'));
+    conversation.scrollTop = conversation.scrollHeight;
+  }
+  async function addImages(files) {
+    for (const file of files) {
+      if (images.length >= 2) throw new Error('图片最多两张；请先移除已有图片。');
+      if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type) || file.size > 8 * 1024 * 1024) throw new Error('图片仅支持 PNG/JPEG/WebP，每张不超过 8 MB。');
+      const url = await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(new Error('图片读取失败。')); reader.readAsDataURL(file); });
+      images.push({ url, name: file.name });
+    }
+    renderImages();
+  }
+  function renderImages() {
+    imageNode?.replaceChildren(...images.map((image, i) => node('div', { class: 'image-preview' }, node('img', { src: image.url, alt: image.name || '待发送图片' }), button('×', () => { images.splice(i, 1); renderImages(); }, 'small'))));
+  }
+  async function sendMessage() {
+    if (chatBusy || !chatInput) return;
+    const question = chatInput.value.trim(); if (!question) return;
+    if (!studio.config.allowAI) { toast('先设置 API 并确认允许发送所需材料。'); switchView('settings'); return; }
+    const previous = messages.slice(-6), attached = images.map(i => i.url);
+    messages.push({ role: 'user', content: question, imageCount: attached.length }); chatInput.value = ''; chatDraft = ''; images = []; renderImages();
+    chatBusy = true; const send = doc.getElementById('assistant-send'); if (send) { send.disabled = true; send.textContent = '正在思考…'; } renderConversation();
+    try {
+      const result = await studio.assistant(question, { ids: ids(), images: attached, history: previous });
+      messages.push({ role: 'assistant', content: result.answer, references: result.references }); messages = messages.slice(-30);
+    } catch (e) { messages.push({ role: 'assistant', content: studio.safeError(e) + '\n本次图片不会自动重复发送；重试时请重新附加。' }); }
+    finally { chatBusy = false; const current = doc.getElementById('assistant-send'); if (current) { current.disabled = false; current.textContent = '发送'; } renderConversation(); refreshStatus(); }
+  }
+  function init() {
+    const args = window.arguments?.[0] || window.__AI_ZOTERO_DEMO__;
+    app = doc.getElementById('app');
+    if (!args?.studio || !args?.core) { app.replaceChildren(empty('请从 Zotero 中打开工作台', '使用工具菜单「AI Zotero · Research Studio」，或 Ctrl/Cmd + Alt + K。')); return; }
+    studio = args.studio; C = args.core; selection = new Set(studio.selectedIDs());
+    buildShell();
+    unsubscribe = studio.subscribe(() => {
+      if (!statusTimer) statusTimer = setTimeout(() => { statusTimer = null; refreshStatus(); }, 200);
+      if (view === 'library') { clearTimeout(renderTimer); renderTimer = setTimeout(renderLibraryResults, 350); }
+    });
+    window.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k' && !e.altKey) {
+        e.preventDefault(); if (view !== 'library') switchView('library'); doc.getElementById('library-search')?.focus();
+      }
+    });
+    window.addEventListener('unload', () => { unsubscribe?.(); clearTimeout(searchTimer); clearTimeout(renderTimer); clearTimeout(toastTimer); clearTimeout(statusTimer); }, { once: true });
+  }
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init, { once: true }); else init();
+})();
+</script></body></html>

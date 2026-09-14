@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "AI Zotero · Research Studio",
+  "version": "0.1.0",
+  "description": "Local-first AI indexing, library organization, multimodal assistant and a personalized literature radar.",
+  "author": "Biogod2020",
+  "homepage_url": "https://github.com/Biogod2020/ai-zotero",
+  "applications": {
+    "zotero": {
+      "id": "ai-zotero@biogod2020.github.io",
+      "strict_min_version": "7.0",
+      "strict_max_version": "10.0.*"
+    }
+  }
+}
