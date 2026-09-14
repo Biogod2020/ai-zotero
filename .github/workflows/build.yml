@@ -2,12 +2,13 @@ name: Build AI Zotero Preview
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: ai-zotero-build-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,63 +21,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Expand verified initial source delivery
-        id: unpack
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import hashlib, json, lzma, os
-          from pathlib import Path, PurePosixPath
-          root = Path('.')
-          parts = sorted(root.glob('.delivery/source-*.part'))
-          if not parts:
-              assert (root / 'package.json').is_file(), 'Source tree is missing'
-          else:
-              assert [p.name for p in parts] == [f'source-{i:02d}.part' for i in range(10)]
-              packed = b''.join(p.read_bytes() for p in parts)
-              assert hashlib.sha256(packed).hexdigest() == '9eab1c8780a8b8a9fa031f57b47b6775df99e64e1c4cb5db19896b16296f5036', 'Delivery checksum mismatch'
-              raw = lzma.decompress(packed, memlimit=268435456)
-              assert len(raw) == 192353, 'Unexpected source size'
-              entries = json.loads(raw)
-              assert isinstance(entries, dict) and len(entries) == 21
-              allowed_root = {'.gitignore', 'LICENSE', 'README.md', 'SECURITY.md', 'package.json'}
-              allowed_dirs = {'addon', 'demo', 'docs', 'tests', 'tools'}
-              for name, text in entries.items():
-                  path = PurePosixPath(name)
-                  assert isinstance(text, str) and len(text) < 100000
-                  assert not path.is_absolute() and '..' not in path.parts and '\\' not in name and '\0' not in name
-                  assert name in allowed_root or (len(path.parts) > 1 and path.parts[0] in allowed_dirs)
-                  assert '.git' not in path.parts and '.github' not in path.parts
-              for name, text in entries.items():
-                  target = root / name
-                  target.parent.mkdir(parents=True, exist_ok=True)
-                  target.write_text(text, encoding='utf-8', newline='')
-              for part in parts:
-                  part.unlink()
-              with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
-                  output.write('bootstrap=true\n')
-              print(f'Verified and expanded {len(entries)} source files.')
-          PY
       - name: Test core and Zotero adapter contracts
         run: npm test
       - name: Build and verify XPI
         run: python3 tools/build.py
       - name: Build offline workspace preview
         run: python3 tools/preview.py
-      - name: Publish readable source and verified preview package
-        if: steps.unpack.outputs.bootstrap == 'true'
-        shell: bash
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add addon demo docs tests tools README.md SECURITY.md LICENSE package.json .gitignore
-          git add dist/*.xpi dist/*.sha256 dist/ai-zotero-preview.html
-          git add -u
-          git commit -m 'Publish AI Zotero 0.1.0 preview: readable sources, tests and verified XPI'
-          git push origin HEAD:main
       - uses: actions/upload-artifact@v4
         with:
-          name: ai-zotero-0.1.0-preview
+          name: ai-zotero-preview
           if-no-files-found: error
           path: |
             dist/*.xpi
